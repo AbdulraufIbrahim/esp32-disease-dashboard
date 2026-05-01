@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Testing AllOrigins Proxy (Empty Blob)...</h1>
+<script>
+async function upload() {
+  try {
+    const blob = new Blob(["test"], { type: "image/jpeg" });
+    const formData = new FormData();
+    formData.append('file', blob, 'test.jpg');
+    
+    const targetUrl = encodeURIComponent("https://AbdulraufIbrahim-plant-disease-api.hf.space/predict");
+    const proxyUrl = `https://api.allorigins.win/raw?url=${targetUrl}`;
+
+    const resp = await fetch(proxyUrl, {
+      method: 'POST',
+      body: formData
+    });
+    console.log("ALLORIGINS PROXY SUCCESS:", await resp.text());
+    document.body.innerHTML += "<p style='color:green'>SUCCESS!</p>";
+  } catch (e) {
+    console.error("ALLORIGINS PROXY ERROR:", e);
+    document.body.innerHTML += "<p style='color:red'>ERROR: " + e.message + "</p>";
+  }
+}
+upload();
+</script>
+</body>
+</html>
